@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#b5-c%=lfxkjcoy$v@(1(ntb8q@cc5tv!hu_()9rinq300kay7'
+SECRET_KEY = 'YOUR_SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -134,4 +134,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-GEMINI_API_KEY = os.getenv('AIzaSyAsCl5-BHlEcBwyPgLIKiMRWiG3jpPK_vM')
+GEMINI_API_KEY = os.getenv('YOURE_API_KEY')
