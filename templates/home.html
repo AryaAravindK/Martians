@@ -1,0 +1,350 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            background: url("{% static 'space-bg.gif' %}") no-repeat center center fixed;
+            background-size: cover;
+            color: rgb(255, 255, 255);
+            margin: 0;
+            font-family: Arial, sans-serif;
+            height: 100hv
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgb(63,94,251,0.5);
+background: radial-gradient(circle, rgba(63,94,251,0.8) 0%, rgba(252,70,107,0.8) 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px;
+            margin-bottom: 50px;
+        }
+        .navbar a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: larger;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: calc(50vh - 50px);
+            padding: 0 50px;
+            margin-bottom: 20px;
+        }
+        .hero .globe {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero .globe img {
+            width: 300px;
+            height: 300px;
+            
+        }
+        .hero .text {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .hero .text h1 {
+            font-size: 60px;
+            margin: 0;
+        }
+        .hero .survey-button {
+            margin-top: auto;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(180deg); }
+        }
+        .survey-button button {
+            padding: 20px 40px; /* Adjust padding as needed */
+            font-size: 20px; /* Adjust font size as needed */
+            border-radius: 10px;
+            background-color: #007bff;
+            color: rgb(255, 0, 0);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .survey-button button:hover {
+            background-color: #ffffff;
+        }
+        .section {
+            margin-top: 250px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .card {
+            width: 30%;
+            text-align: center;
+            background: rgb(2,0,36);
+            background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 24%, rgba(1,88,106,0.760189109823617) 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 0 10px; /* Adjust margin as needed */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+        }
+        
+        .card-title {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 34px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .card-logo {
+            width: 50px; /* Adjust logo size as needed */
+            margin: 0 auto 10px; /* Center logo and add bottom margin */
+        }
+        
+        .progress-bar {
+            background-color: #a2b1ff;
+            border-radius: 5px;
+            height: 20px;
+            width: 100%;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background-color: rgb(255, 0, 0); /* Adjust color as needed */
+        }
+        
+        .progress-bar-text {
+            font-size: 18px;
+            color: rgba(255, 0, 0, 0.867);
+            line-height: 20px;
+            font-weight: bold;
+        }
+
+        .survey-button {
+            text-align: center;
+            margin-top: 20px; /* Adjust margin as needed */
+        }
+        
+        #survey-btn {
+            background-color: #007bff;
+            color: rgb(148, 82, 139);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        
+        #survey-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .calculator-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .calculation {
+            background-color: #443636;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 0 20px;
+        }
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #9e5f5f;
+            border-radius: 5px;
+            box-sizing: border-box;
+            outline: none;
+        }
+        button {
+            background-color: #007bff;
+            color: #724848;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        
+    </style>
+    <script src="https://climateclock.world/widget-v2.js" async></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/#">About</a>
+        <a href="/#">Services</a>
+        <a href="/#">Contact</a>
+            {% if not user.is_authenticated%}
+            <a href="accounts/register">Register</a>
+            {% else %}
+            <a href="accounts/logout">Logout</a>
+            {% endif %}
+    </div>
+    <div class="hero">
+        <div class="text">
+            <h1>Hello User</h1>
+            <climate-clock />
+            <div class="survey-button">
+                 {% comment %} <button><a href="survey/take-survey">Take a Survey NOW</a></button>  {% endcomment %}
+            </div>
+        </div>
+        <div class="globe">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_%28large%29.gif" alt="Rotating Globe">
+        </div>
+    </div>
+
+    <div class="survey-button">
+        <button id="survey-btn" ><a href="survey/take-survey/" style="color: white;">Take a Survey</a></button>
+    </div>
+    
+    <div class="section bg-primary">
+        <div class="card"  >
+            <div class="card-title">Vehicle</div>
+            <div class="card-logo">
+               
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
+                        <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
+                      </svg>
+                    
+                
+            </div>
+            <div class="progress-bar">
+                <div class="progress-bar-fill" style="width: 30%;"></div>
+            </div>
+            <div class="progress-bar-text">In India, transport sector emits an estimated 258.10 Tg of CO2</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Electricity</div>
+            <div class="card-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-lightning-charge-fill" viewBox="0 0 16 16">
+                    <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
+                  </svg>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-bar-fill" style="width: 60%;"></div>
+            </div>
+            <div class="progress-bar-text">The total CO2 emissions for the year 2026-27(2335 TWh) are estimated at 983 million tonnes</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Default</div>
+            <div class="card-logo">
+                
+                    
+               
+                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-buildings-fill" viewBox="0 0 16 16">
+                    <path d="M15 .5a.5.5 0 0 0-.724-.447l-8 4A.5.5 0 0 0 6 4.5v3.14L.342 9.526A.5.5 0 0 0 0 10v5.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V14h1v1.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5zM2 11h1v1H2zm2 0h1v1H4zm-1 2v1H2v-1zm1 0h1v1H4zm9-10v1h-1V3zM8 5h1v1H8zm1 2v1H8V7zM8 9h1v1H8zm2 0h1v1h-1zm-1 2v1H8v-1zm1 0h1v1h-1zm3-2v1h-1V9zm-1 2h1v1h-1zm-2-4h1v1h-1zm3 0v1h-1V7zm-2-2v1h-1V5zm1 0h1v1h-1z"/>
+                    <circle cx="50" cy="50" r="40" stroke="white" stroke-width="3" fill="gray" />
+                </svg>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-bar-fill" style="width: 075%;"></div>
+            </div>
+            <div class="progress-bar-text">The share of power generation and industries in the total emissions was 53% and 25%, respectively</div>
+        </div>
+    </div>
+
+
+    <div class="calculator-container">
+        <div class="calculation">
+            <h2>Transport Carbon Footprint</h2>
+            <label for="transport">Distance Travelled (in km):</label>
+            <input type="number" id="transport" placeholder="Enter distance" style="color: black;">
+            <button onclick="calculateTransport()" style="color: white;">Calculate</button>
+            <div class="result" id="result-transport"></div>
+        </div>
+
+        <div class="calculation">
+            <h2>Electricity Consumption Carbon Footprint</h2>
+            <label for="kwh">Electricity Consumption (in kWh):</label>
+            <input type="number" id="kwh" placeholder="Enter kWh consumed" style="color: black;">
+            <button onclick="calculateElectricity()" style="color: white;">Calculate</button>
+            <div class="result" id="result-electricity"></div>
+        </div>
+
+        <div class="calculation">
+            <h2>Total Carbon Footprint</h2>
+            <div class="result" id="result-total"></div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        function calculateTransport() {
+            var distance = parseFloat(document.getElementById('transport').value);
+            var emissions = distance * 0.1; // Assume 0.1 kg CO2 per km for transport
+
+            document.getElementById('result-transport').innerText = "Your carbon footprint for traveling " + distance + " km is approximately " + emissions.toFixed(2) + " kg CO2.";
+            updateTotal();
+        }
+
+        function calculateElectricity() {
+            var kwh = parseFloat(document.getElementById('kwh').value);
+            var emissions = kwh * 0.5; // Assume 0.5 kg CO2 per kWh for electricity
+
+            document.getElementById('result-electricity').innerText = "Your carbon footprint for consuming " + kwh + " kWh of electricity is approximately " + emissions.toFixed(2) + " kg CO2.";
+            updateTotal();
+        }
+
+        function updateTotal() {
+            var total = 0;
+            var transportResult = document.getElementById('result-transport').innerText;
+            var electricityResult = document.getElementById('result-electricity').innerText;
+
+            if (transportResult.includes("approximately")) {
+                var transportEmissions = parseFloat(transportResult.split("approximately")[1].split("kg")[0].trim());
+                total += transportEmissions;
+            }
+
+            if (electricityResult.includes("approximately")) {
+                var electricityEmissions = parseFloat(electricityResult.split("approximately")[1].split("kg")[0].trim());
+                total += electricityEmissions;
+            }
+
+            document.getElementById('result-total').innerText = "Total carbon footprint: " + total.toFixed(2) + " kg CO2.";
+        }
+    </script>
+</body>
+</html>

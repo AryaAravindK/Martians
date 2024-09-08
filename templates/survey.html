@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            animation: gradientAnimation 10s ease infinite;
+            transition: background-color 0.5s ease;
+        }
+        
+        @keyframes gradientAnimation {
+            0% { background: linear-gradient(to right, #ff6e7f, #bfe9ff); }
+            50% { background: linear-gradient(to right, #bfe9ff, #ff6e7f); }
+            100% { background: linear-gradient(to right, #ff6e7f, #bfe9ff); }
+        }
+
+        .quiz-container {
+            background: rgba(255,255,255,0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .option {
+            background: #007bff;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 1;
+            max-width: 100px;
+            text-align: center;
+        }
+        .option:hover {
+            background: #0056b3;
+        }
+        .option.selected {
+            background: #34c759;
+        }
+        .option input {
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            padding: 10px;
+            text-align: center;
+            max-width: 100px;
+            width: 100%;
+            box-sizing: border-box;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+        .option input:focus {
+            background: #0056b3;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navigation button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .navigation button:hover {
+            background: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = document.querySelectorAll('.question-container');
+            const nextButton = document.querySelector('#next-button');
+            const backButton = document.querySelector('#back-button');
+            const submitButton = document.querySelector('#submit-button');
+    
+            function showQuestion(index) {
+                questions.forEach((question, i) => {
+                    question.classList.toggle('hidden', i !== index);
+                });
+    
+                if (index === 0) {
+                    backButton.classList.add('hidden');
+                } else {
+                    backButton.classList.remove('hidden');
+                }
+    
+                if (index === questions.length - 1) {
+                    nextButton.classList.add('hidden');
+                } else {
+                    nextButton.classList.remove('hidden');
+                }
+            }
+    
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const options = this.parentElement.querySelectorAll('.option');
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+    
+                    if (this.querySelector('input').name === 'question-1' && this.querySelector('input').value === 'no') {
+                        nextButton.classList.add('hidden');
+                    } else {
+                        nextButton.classList.remove('hidden');
+                    }
+                });
+            });
+    
+            nextButton.addEventListener('click', function() {
+                let currentQuestion = Array.from(questions).findIndex(q => !q.classList.contains('hidden'));
+                if (currentQuestion < questions.length - 1) {
+                    currentQuestion++;
+                    showQuestion(currentQuestion);
+                }
+            });
+    
+            backButton.addEventListener('click', function() {
+                let currentQuestion = Array.from(questions).findIndex(q => !q.classList.contains('hidden'));
+                if (currentQuestion > 0) {
+                    currentQuestion--;
+                    showQuestion(currentQuestion);
+                }
+            });
+    
+            showQuestion(0); // Show the first question initially
+        });
+    </script>
+    
+</head>
+<body>
+    <div class="quiz-container">
+        <form action="{% url 'take-survey' %}" method="post">
+            {% csrf_token %}
+            <div class="question-container">
+                <p class="question">Do you own a vehicle?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="question-1" value="yes" style="display:none;"> Yes
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="question-1" value="no" style="display:none;"> No
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-container hidden">
+                <p class="question">How many 2-wheelers do you own?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="number" name="question-2"> 
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-container hidden">
+                <p class="question">How many 4-wheelers do you own?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="number" name="question-3"> 
+                    </label>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <button type="button" id="back-button" class="hidden">←</button>
+                <button type="button" id="next-button">→</button>
+                <button type="submit" id="submit-button" class="hidden">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

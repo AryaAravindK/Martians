@@ -1,0 +1,91 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Register</title>
+        <style>
+            body {
+                background: linear-gradient(to right, #6a11cb, #2575fc);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
+            .container {
+                background: rgba(255, 255, 255, 0.7);
+                padding: 40px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                width: 100%;
+                max-width: 400px;
+                text-align: center;
+            }
+            h1 {
+                margin-bottom: 20px;
+                color: #333;
+            }
+            .messages {
+                color: red;
+                margin-bottom: 15px;
+            }
+            input[type="text"], input[type="email"], input[type="password"] {
+                margin-bottom: 15px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+                width: calc(100% - 22px); /* Adjust for padding and border */
+            }
+            input[type="submit"] {
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background: #6a11cb;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                width: 100%;
+            }
+            input[type="submit"]:hover {
+                background: #2575fc;
+            }
+            .login-link {
+                margin-top: 20px;
+                font-size: 14px;
+            }
+            .login-link a {
+                color: #6a11cb;
+                text-decoration: none;
+            }
+            .login-link a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <h1>Register</h1>
+                <div class="messages">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+                <input type="text" name="first_name" placeholder="Enter First Name"><br>
+                <input type="text" name="last_name" placeholder="Enter Last Name"><br>
+                <input type="email" name="email" placeholder="Enter Email"><br>
+                <input type="text" name="username" placeholder="Enter Username"><br>
+                <input type="password" name="password1" placeholder="Create Password"><br>
+                <input type="password" name="password2" placeholder="Confirm Password"><br>
+                <input type="submit" value="Register">
+                <div class="login-link">
+                    Already have an account? <a href="/accounts/login">Log in</a>
+                </div>
+            </form>
+        </div>
+    </body>
+    </html>
